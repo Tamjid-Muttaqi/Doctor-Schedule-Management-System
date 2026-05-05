@@ -241,7 +241,7 @@ CREATE TABLE Payments (
 
 ### View Doctors and Book Appointment
 
-![View Doctors and Book Appointment](images/view-doctors-book-appointment.png)
+![View Doctors and Book Appointment](images/book-appointment.png)
 
 ### Appointment Payment with Discount
 
@@ -253,7 +253,7 @@ CREATE TABLE Payments (
 
 ### Give Doctor Review
 
-![Give Doctor Review](images/give-doctor-review.png)
+![Give Doctor Review](images/give-review.png)
 
 ### Admin Dashboard
 
@@ -277,7 +277,7 @@ CREATE TABLE Payments (
 
 ### Public Reviews - Super Admin
 
-![Public Reviews - Super Admin](images/public-reviews-super-admin.png)
+![Public Reviews - Super Admin](images/public-reviews.png)
 
 ## Project Outcome
 
