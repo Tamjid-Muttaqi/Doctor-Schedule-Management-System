@@ -1,162 +1,220 @@
 # Doctor Schedule Management System
 
-A desktop-based **Doctor Schedule Management System** developed using **C# Windows Forms** with database integration. The application helps manage doctors, schedules, patient appointments, user roles, and public reviews in a structured healthcare environment.
+A desktop-based **Doctor Schedule Management System** developed using **C# Windows Forms** and **SQL Server**. The system helps manage doctor schedules, patient appointments, user roles, and public reviews in an organized way.
 
-## Project Information
+## Project Overview
 
-| Item | Details |
-|---|---|
-| Course | CSC2210: Object Oriented Programming 2 |
-| University | American International University-Bangladesh (AIUB) |
-| Department | Department of Computer Science |
-| Project Name | Doctor Schedule Management System |
-| Technology | C# Windows Forms, SQL Database |
-| Submitted By | Tamjid Muttaqi |
-| Student ID | 24-57591-2 |
-| Supervisor | Dr. Md. Iftekharul Mobin |
+In a healthcare environment, managing doctor schedules and patient appointments manually can be time-consuming and error-prone. Patients may face difficulty finding available doctors and booking appointments without schedule conflicts.
 
-## Introduction
+This application provides a structured platform where patients can view doctors, check available schedules, book appointments, and give reviews. Admins can manage doctors and schedules, while the Super Admin can monitor reviews and manage system-level actions.
 
-In real-life healthcare scenarios, patients often face difficulty finding available doctors and booking appointments without schedule conflicts. The **Doctor Schedule Management System** solves this problem by providing a desktop-based platform where patients can view doctors, check available schedules, and book appointments easily.
+## Technologies Used
 
-The system supports multiple user roles, including **Super Admin**, **Admin**, and **Patient/User**. Each role has different access levels and functionalities. The project includes CRUD operations, role-based access control, appointment management, database integration, and validation features.
+- C#
+- Windows Forms
+- SQL Server
+- ADO.NET
+- Object-Oriented Programming
 
-## Objectives
-
-- Manage doctor information efficiently.
-- Maintain doctor schedules with available days and time slots.
-- Allow patients to register, log in, view doctors, and book appointments.
-- Prevent duplicate appointments for the same doctor schedule.
-- Allow patients to give reviews and ratings.
-- Allow admins and super admins to monitor system activity.
-- Provide a user-friendly Windows Forms graphical interface.
-
-## User Roles and Features
+## User Roles
 
 ### Super Admin
 
-- Log in to the system.
-- View all doctors and users.
-- Monitor public reviews.
-- Remove doctors based on negative reviews.
-- Manage system-level operations.
+- Log in to the system
+- View doctors and users
+- Monitor public reviews
+- Remove doctors based on negative reviews
+- Manage system-level operations
 
 ### Admin
 
-- Log in to the system.
-- Add new doctor information.
-- Update existing doctor information.
-- Delete doctor records.
-- Manage doctor schedules.
-- View all appointments.
+- Log in to the system
+- Add, update, and delete doctor information
+- Manage doctor schedules
+- View all appointments
 
 ### Patient / User
 
-- Register and log in.
-- View available doctors.
-- Check available schedules.
-- Book appointments.
-- Give reviews and ratings.
+- Register and log in
+- View available doctors
+- Check doctor schedules
+- Book appointments
+- Give doctor reviews
 
-## System Features
+## Main Features
 
-- Role-based login system.
-- Doctor management.
-- Schedule management.
-- Appointment booking.
-- Review and rating system.
-- Database integration.
-- CRUD operations.
-- Data validation.
-- Appointment conflict prevention.
-- User-friendly graphical interface.
+- Role-based login system
+- Patient registration
+- Doctor information management
+- Doctor schedule management
+- Appointment booking
+- Public review system
+- Super Admin review monitoring
+- SQL Server database integration
+- CRUD operations
+- Validation and verification of user inputs
+
+## UI Navigation
+
+The system navigation starts from the Login Form. New patients can register first and then log in. After login, users are redirected to different dashboards based on their roles.
+
+```text
+Register Form → Login Form
+
+Login Form
+├── Patient Dashboard
+│   ├── View Doctors / Book Appointment
+│   └── Give Doctor Review
+│
+├── Admin Dashboard
+│   ├── Manage Doctors
+│   └── Manage Schedule
+│
+└── Super Admin Dashboard
+    ├── View Doctors
+    └── Public Reviews / Remove Doctor
+```
+
+## UI Screenshots
+
+### Login Form
+
+![Login Form](images/login-form.png)
+
+### Patient Registration
+
+![Patient Registration](images/patient-registration.png)
+
+### Patient Dashboard
+
+![Patient Dashboard](images/patient-dashboard.png)
+
+### View Doctors and Book Appointment
+
+![View Doctors and Book Appointment](images/book-appointment.png)
+
+### Give Doctor Review
+
+![Give Doctor Review](images/give-review.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](images/admin-dashboard.png)
+
+### Doctor Management
+
+![Doctor Management](images/doctor-management.png)
+
+### Schedule Management
+
+![Schedule Management](images/schedule-management.png)
+
+### Super Admin Dashboard
+
+![Super Admin Dashboard](images/super-admin-dashboard.png)
+
+### Public Reviews
+
+![Public Reviews](images/public-reviews.png)
 
 ## ER Diagram
 
-The ER diagram represents the relationships among users, doctors, schedules, appointments, and reviews.
-
 ![ER Diagram](images/er-diagram.png)
 
-## Normalization
+## Database Schema
 
-### Relationship: Doctor Has Schedule
+![Database Schema](images/database-schema.png)
 
-**UNF**
+## Database Normalization
 
-```text
-DoctorName, Specialization, Day, Time, Status
-```
+### Doctor Has Schedule
 
-**1NF**
+**UNF:**
 
 ```text
 DoctorName, Specialization, Day, Time, Status
 ```
 
-**2NF / 3NF**
+**1NF:**
 
 ```text
-Doctors(DoctorId, DoctorName, Specialization)
+DoctorName, Specialization, Day, Time, Status
+```
+
+**2NF:**
+
+```text
+Doctor(DoctorId, DoctorName, Specialization)
 DoctorSchedule(ScheduleId, DoctorId, Day, Time, Status)
 ```
 
-### Relationship: User Books Appointment
+**3NF:**
 
-**UNF**
+```text
+Same as 2NF
+```
+
+### User Books Appointment
+
+**UNF:**
 
 ```text
 UserName, DoctorName, Date, Time, Status
 ```
 
-**1NF**
+**1NF:**
 
 ```text
 UserName, DoctorName, Date, Time, Status
 ```
 
-**2NF / 3NF**
+**2NF:**
 
 ```text
 Users(UserId, Username, Password, Role)
 Appointments(AppointmentId, UserId, DoctorId, Date, Time, Status)
 ```
 
-### Relationship: User Gives Review
+**3NF:**
 
-**UNF**
+```text
+Same as 2NF
+```
+
+### User Gives Review
+
+**UNF:**
 
 ```text
 UserName, DoctorName, Rating, Comment
 ```
 
-**1NF**
+**1NF:**
 
 ```text
 UserName, DoctorName, Rating, Comment
 ```
 
-**2NF / 3NF**
+**2NF:**
 
 ```text
 Users(UserId, Username)
 Reviews(ReviewId, UserId, DoctorId, Rating, Comment)
 ```
 
-## Final Tables
+**3NF:**
 
-After normalization, the final database contains the following tables:
+```text
+Same as 2NF
+```
+
+## Final Tables
 
 1. Users
 2. Doctors
 3. DoctorSchedule
 4. Appointments
 5. Reviews
-
-## Database Schema
-
-The database schema shows the final table structure and the relationships among tables.
-
-![Database Schema](images/database-schema.png)
 
 ## Database Query
 
@@ -211,11 +269,6 @@ CREATE TABLE Reviews (
 );
 ```
 
-## Validation and Verification
-
-The system includes validation to ensure that required input fields are not left empty and appointment data is handled properly. The appointment booking process verifies doctor availability and helps prevent duplicate bookings for the same time slot.
-
 ## Conclusion
 
-The **Doctor Schedule Management System** provides an organized desktop-based solution for managing doctors, schedules, appointments, and reviews. By using C# Windows Forms and database integration, the system reduces manual work, improves appointment management, and supports different user roles through a structured interface.
-
+The Doctor Schedule Management System provides an efficient desktop-based solution for managing doctor schedules and patient appointments. It supports multiple user roles, prevents appointment conflicts, and integrates database operations with a user-friendly Windows Forms interface.
