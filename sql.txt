@@ -1,0 +1,72 @@
+CREATE DATABASE DoctorScheduleDB;
+GO
+
+USE DoctorScheduleDB;
+GO
+
+CREATE TABLE Users (
+    UserId INT PRIMARY KEY IDENTITY(1,1),
+    Username VARCHAR(50),
+    Password VARCHAR(50),
+    Role VARCHAR(20)
+);
+
+CREATE TABLE Doctors (
+    DoctorId INT PRIMARY KEY IDENTITY(1,1),
+    DoctorName VARCHAR(100),
+    Specialization VARCHAR(100),
+    ChamberLocation VARCHAR(100)
+);
+
+CREATE TABLE DoctorSchedule (
+    ScheduleId INT PRIMARY KEY IDENTITY(1,1),
+    DoctorId INT,
+    DayName VARCHAR(20),
+    StartTime VARCHAR(20),
+    EndTime VARCHAR(20),
+    Status VARCHAR(20),
+    FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId)
+);
+
+CREATE TABLE Appointments (
+    AppointmentId INT PRIMARY KEY IDENTITY(1,1),
+    UserId INT,
+    DoctorId INT,
+    ScheduleId INT,
+    AppointmentDate DATE,
+    Status VARCHAR(20),
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId),
+    FOREIGN KEY (ScheduleId) REFERENCES DoctorSchedule(ScheduleId)
+);
+
+CREATE TABLE Reviews (
+    ReviewId INT PRIMARY KEY IDENTITY(1,1),
+    UserId INT,
+    DoctorId INT,
+    Rating INT,
+    Comment VARCHAR(255),
+    FOREIGN KEY (UserId) REFERENCES Users(UserId),
+    FOREIGN KEY (DoctorId) REFERENCES Doctors(DoctorId)
+);
+
+CREATE TABLE Coupons (
+    CouponId INT PRIMARY KEY IDENTITY(1,1),
+    CouponCode VARCHAR(50),
+    Description VARCHAR(150),
+    DiscountPercent INT,
+    CaseType VARCHAR(100)
+);
+
+CREATE TABLE Payments (
+    PaymentId INT PRIMARY KEY IDENTITY(1,1),
+    AppointmentId INT,
+    Amount DECIMAL(10,2),
+    CouponCode VARCHAR(50),
+    CaseType VARCHAR(100),
+    DiscountAmount DECIMAL(10,2),
+    FinalAmount DECIMAL(10,2),
+    PaymentMethod VARCHAR(50),
+    PaymentStatus VARCHAR(20),
+    FOREIGN KEY (AppointmentId) REFERENCES Appointments(AppointmentId)
+);
