@@ -1,0 +1,16 @@
+using System;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Windows.Forms;
+namespace DoctorScheduleManagementSystem
+{
+    public class AppointmentBookingForm : Form
+    {
+        ComboBox cmbDoctor,cmbDay; TextBox txtDate; DataGridView grid;
+        public AppointmentBookingForm(){Text="Book Appointment";Size=new Size(860,500);StartPosition=FormStartPosition.CenterScreen;Label title=new Label{Text="View Doctors and Book Appointment",Font=new Font("Arial",17,FontStyle.Bold),AutoSize=true,Location=new Point(230,20)};Label lDoc=new Label{Text="Doctor",Location=new Point(50,85),AutoSize=true};cmbDoctor=new ComboBox{Location=new Point(130,80),Width=220,DropDownStyle=ComboBoxStyle.DropDownList};Label lDay=new Label{Text="Day",Location=new Point(390,85),AutoSize=true};cmbDay=new ComboBox{Location=new Point(440,80),Width=160,DropDownStyle=ComboBoxStyle.DropDownList};cmbDay.Items.AddRange(new string[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"});Label lDate=new Label{Text="Date",Location=new Point(50,130),AutoSize=true};txtDate=new TextBox{Location=new Point(130,125),Width=220,Text=DateTime.Now.ToString("yyyy-MM-dd")};Button btnSearch=new Button{Text="Show Free Slots",Location=new Point(440,123),Width=160};Button btnBook=new Button{Text="Book Selected Slot",Location=new Point(620,123),Width=160};btnSearch.Click+=(s,e)=>LoadAvailableSlots();btnBook.Click+=BtnBook_Click;grid=new DataGridView{Location=new Point(40,185),Size=new Size(770,230),ReadOnly=true,AutoSizeColumnsMode=DataGridViewAutoSizeColumnsMode.Fill};Controls.AddRange(new Control[]{title,lDoc,cmbDoctor,lDay,cmbDay,lDate,txtDate,btnSearch,btnBook,grid});LoadDoctors();}
+        void LoadDoctors(){DataTable dt=Db.GetData("SELECT DoctorId,DoctorName FROM Doctors");cmbDoctor.DataSource=dt;cmbDoctor.DisplayMember="DoctorName";cmbDoctor.ValueMember="DoctorId";}
+        void LoadAvailableSlots(){if(cmbDoctor.SelectedValue==null||cmbDay.Text==""){MessageBox.Show("Select doctor and day.");return;} grid.DataSource=Db.GetData(@"SELECT ScheduleId,DayName,StartTime,EndTime,Status FROM DoctorSchedule WHERE DoctorId=@d AND DayName=@day AND Status='Available'",new SqlParameter("@d",cmbDoctor.SelectedValue),new SqlParameter("@day",cmbDay.Text));}
+        void BtnBook_Click(object sender,EventArgs e){if(grid.CurrentRow==null){MessageBox.Show("Select an available slot.");return;} int scheduleId=Convert.ToInt32(grid.CurrentRow.Cells["ScheduleId"].Value);int doctorId=Convert.ToInt32(cmbDoctor.SelectedValue);object appointmentObj=Db.Scalar(@"INSERT INTO Appointments(UserId,DoctorId,ScheduleId,AppointmentDate,Status) OUTPUT INSERTED.AppointmentId VALUES(@u,@d,@s,@date,'Pending Payment')",new SqlParameter("@u",AppSession.UserId),new SqlParameter("@d",doctorId),new SqlParameter("@s",scheduleId),new SqlParameter("@date",txtDate.Text));if(appointmentObj==null){MessageBox.Show("Appointment booking failed.");return;} int appointmentId=Convert.ToInt32(appointmentObj);Db.Execute("UPDATE DoctorSchedule SET Status='Booked' WHERE ScheduleId=@s",new SqlParameter("@s",scheduleId));MessageBox.Show("Appointment booked. Please complete payment.");new PaymentForm(appointmentId).ShowDialog();LoadAvailableSlots();}
+    }
+}

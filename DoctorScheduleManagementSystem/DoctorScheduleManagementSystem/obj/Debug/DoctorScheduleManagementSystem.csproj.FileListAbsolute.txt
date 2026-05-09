@@ -1,0 +1,9 @@
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\bin\Debug\DoctorScheduleManagementSystem.exe.config
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\bin\Debug\DoctorScheduleManagementSystem.exe
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\bin\Debug\DoctorScheduleManagementSystem.pdb
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.csproj.AssemblyReference.cache
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.Properties.Resources.resources
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.csproj.GenerateResource.cache
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.csproj.CoreCompileInputs.cache
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.exe
+E:\C#\DoctorScheduleManagementSystem\DoctorScheduleManagementSystem\obj\Debug\DoctorScheduleManagementSystem.pdb
